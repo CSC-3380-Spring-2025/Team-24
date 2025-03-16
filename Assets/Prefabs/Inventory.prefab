@@ -807,7 +807,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5697009698034853758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,8 +839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 1939059847675892188}
   maxSize: 6
-  inventory:
-  - {fileID: 0}
+  inventory: []
   sortPoint:
   - {fileID: 2326108573878409611}
   - {fileID: 150065325972909398}

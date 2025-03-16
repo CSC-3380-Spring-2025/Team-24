@@ -17305,10 +17305,6 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 1803619637
       objectReference: {fileID: 0}
-    - target: {fileID: 2308848549961984180, guid: b142749f707318c4bba6ff32a9b6f34d, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2367533088772605711, guid: b142749f707318c4bba6ff32a9b6f34d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
