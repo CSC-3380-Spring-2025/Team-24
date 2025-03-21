@@ -18,14 +18,14 @@ MonoBehaviour:
   spawnWeight: 0
   spawnRegion: {fileID: 0}
   spawnDepth: 0
-  schoolSizeMin: 10
-  schoolSizeMax: 10
-  maxSpeed: 2
+  schoolSizeMin: 20
+  schoolSizeMax: 20
+  maxSpeed: 5
   maxForce: 2
-  neighborRadius: 1
-  separationDistance: 1.5
+  neighborRadius: 4
+  separationDistance: 3
   alignmentWeight: 1
-  cohesionWeight: 0.25
+  cohesionWeight: 0.5
   separationWeight: 1
-  wanderWeight: 2
-  homeAttractionWeight: 0.3
+  wanderWeight: 1
+  homeAttractionWeight: 0.1

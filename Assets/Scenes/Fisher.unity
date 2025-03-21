@@ -42511,6 +42511,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 57e4bce17582b5d4980798b295ebbda0, type: 2}
   lureTemplateAssets:
   - {fileID: 11400000, guid: 24df2057fc0892a43b77a9fc45d7764e, type: 2}
+  - {fileID: 11400000, guid: 258662278fabe4d4ea3399271ffc3796, type: 2}
   hatTemplateAssets: []
   shirtTemplateAssets: []
   pantsTemplateAssets: []
@@ -42522,7 +42523,8 @@ MonoBehaviour:
   reelModAssets: []
   lineModAssets:
   - {fileID: 11400000, guid: 3752082d34689e84299924a4f99cfee8, type: 2}
-  lureModAssets: []
+  lureModAssets:
+  - {fileID: 11400000, guid: 4e2589088ab117b4fb20f0dbbff3c409, type: 2}
   hatModAssets: []
   shirtModAssets: []
   pantsModAssets: []
