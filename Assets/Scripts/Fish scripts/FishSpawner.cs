@@ -23,7 +23,7 @@ public class FishSpawner : MonoBehaviour
             UnityEngine.Random.Range(regionBounds.min.y, regionBounds.max.y)
         );
 
-        GameObject schoolParent = new GameObject(fishType.typeName + "School"); //Parent GameObject to collect school of fish
+        GameObject schoolParent = new GameObject(fishType.speciesID + "School"); //Parent GameObject to collect school of fish
         schoolParent.transform.position = schoolCenter; //Set the parents transform to the random center
 
         for (int i = 0; i < schoolSize; i++) //Add schoolSize amount of fishObjects

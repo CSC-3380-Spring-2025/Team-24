@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tier 1
   m_EditorClassIdentifier: 
   tier: 1
-  minItemLevel: 1
+  minItemLevel: 3
   minValue: 1.01
   maxValue: 1.05
   weight: 500

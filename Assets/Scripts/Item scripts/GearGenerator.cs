@@ -15,6 +15,7 @@ public enum EquipmentType
     Boots
 }
 
+
 // Attribute focus for equipment templates
 public enum AttributeFocus
 {
@@ -173,7 +174,21 @@ public class GearGenerator : MonoBehaviour
 
         return item;
     }
+    public SerializableEquipmentItem GetSerializableEquipment(EquipmentType type, int itemLevel, Rarity minRarity = Rarity.Common)
+    {
+        EquipmentItem item = GenerateEquipment(type, itemLevel, minRarity);
+        SerializableEquipmentItem serializableEquipmentItem = new SerializableEquipmentItem();
+        serializableEquipmentItem.itemName = item.itemName;
+        serializableEquipmentItem.description = item.description;
+        serializableEquipmentItem.itemLevel = item.itemLevel;
+        serializableEquipmentItem.rarity = minRarity;
+        serializableEquipmentItem.equipmentType = type;
+        serializableEquipmentItem.strength = item.strength;
+        serializableEquipmentItem.agility = item.agility;
+        serializableEquipmentItem.intelligence = item.intelligence;
 
+        return serializableEquipmentItem;
+    }
     // Helper method to generate rarity
     private Rarity GenerateRarity(Rarity minRarity)
     {
@@ -828,8 +843,10 @@ public class GearGenerator : MonoBehaviour
     }
 
     // Utility method to generate equipment rewards based on fish type
+    public GameObject gearItemPrefab;
     public List<EquipmentItem> GenerateFishingRewards(FishType fishType, int rewardCount = 1)
     {
+
         List<EquipmentItem> rewards = new List<EquipmentItem>();
 
         // Determine minimum rarity based on fish properties
@@ -858,6 +875,8 @@ public class GearGenerator : MonoBehaviour
 
             // Generate the equipment
             EquipmentItem item = GenerateEquipment(type, itemLevel, minRarity);
+            
+        
             rewards.Add(item);
         }
 
@@ -885,7 +904,7 @@ public class GearGenerator : MonoBehaviour
     private int CalculateItemLevelFromFish(FishType fishType)
     {
         // Base level calculation on depth and other factors
-        float baseLevel = Mathf.Max(1f, fishType.spawnDepth / 5f);
+        float baseLevel = Mathf.Max(1f, fishType.spawnWeight / 5f);
 
         // Add random variance
         int variance = UnityEngine.Random.Range(-2, 3);

@@ -246,7 +246,7 @@ public class HookedState : StateInterface
                 FishAI fishAI = hookedFish.GetComponent<FishAI>();
                 if (fishAI != null && fishAI.fishType != null)
                 {
-                   Debug.Log($"Caught fish of type: {fishAI.fishType.typeName}");
+                   Debug.Log($"Caught fish of type: {fishAI.fishType.speciesID}");
                 }
 
                 // Return to passive state

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 825915827748576039}
   - component: {fileID: 7742747916527065724}
   - component: {fileID: 4580236106445195381}
-  - component: {fileID: 3694894072394606040}
-  - component: {fileID: -6367013037059966117}
+  - component: {fileID: -4683088360310760812}
+  - component: {fileID: -2916157744956797296}
   m_Layer: 0
   m_Name: Bass
   m_TagString: Untagged
@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3, y: 9.8, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.41, y: 0.41, z: 0.41}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -79,9 +79,9 @@ SpriteRenderer:
   m_SortingLayerID: 992946319
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 28d47cbaafc98254f8d4f6184dff22cd, type: 3}
+  m_Sprite: {fileID: -7812125124591183936, guid: d204a6453e0f1b94f93c2ae5cfa10e1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -117,24 +117,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3694894072394606040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2491004836648192844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87296c39aa592a34e9f2655e9a971112, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fishType: {fileID: 0}
-  currentLure: {fileID: 0}
-  velocity: {x: 0, y: 0}
-  homePosition: {x: 0, y: 0}
-  lureAttractionRadius: 3
---- !u!58 &-6367013037059966117
+--- !u!58 &-4683088360310760812
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,4 +152,22 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 2
+--- !u!114 &-2916157744956797296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2491004836648192844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87296c39aa592a34e9f2655e9a971112, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishType: {fileID: 0}
+  currentLure: {fileID: 0}
+  velocity: {x: 0, y: 0}
+  homePosition: {x: 0, y: 0}
+  lureAttractionRadius: 3
+  fieldOfView: 270

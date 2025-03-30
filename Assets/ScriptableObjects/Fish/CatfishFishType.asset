@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfe229777d4467f49aa231f1d3116f91, type: 3}
+  m_Name: CatfishFishType
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 2491004836648192844, guid: 27d0ef4eee317d44ab207dfaf1db9ad2, type: 3}
+  speciesID: Catfish
+  spawnWeight: 0
+  spawnRegion: {fileID: 0}
+  spawnDepth: 0
+  schoolSizeMin: 3
+  schoolSizeMax: 10
+  maxSpeed: 2
+  maxForce: 0.5
+  neighborRadius: 3
+  separationDistance: 3
+  alignmentWeight: 1
+  cohesionWeight: 0.5
+  separationWeight: 1.5
+  wanderWeight: 0.5
+  homeAttractionWeight: 0.1

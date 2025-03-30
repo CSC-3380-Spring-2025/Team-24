@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -7,7 +9,8 @@ public class StateController : MonoBehaviour
     public static event Action<GameObject> OnFishCaught;
     public static event Action OnFishEscaped;
 
-
+    private GearGenerator gearGenerator;
+    private Inventory inventory;
     private StateInterface currentState;
 
     [Header("Passive State Settings")]
@@ -44,7 +47,6 @@ public class StateController : MonoBehaviour
 
     private void Start()
     {
-       
         if (powerMinigameObject == null)
         {
             Debug.LogError("Power minigame GameObject reference is not set");
@@ -73,10 +75,9 @@ public class StateController : MonoBehaviour
         {
             currentState.Exit();
         }
-
+  
         currentState = newState;
   
-
         if (currentState != null)
         {
             currentState.Enter();
@@ -139,7 +140,7 @@ public class StateController : MonoBehaviour
         Debug.Log($"Fish caught: {fish.name}");
 
         OnFishCaught?.Invoke(fish);
-
+        
         Debug.Log("Generating loot for caught fish...");
 
         FishAI fishAI = fish.GetComponent<FishAI>();
@@ -147,7 +148,7 @@ public class StateController : MonoBehaviour
         {
             Debug.Log($"Fish type: {fishAI.fishType.name}");      
         }
-
+        
         //Find and destroy lure 
         GameObject lure = GameObject.FindWithTag("Lure") ?? GameObject.FindGameObjectWithTag("OccupiedLure");
         if ( lure != null)
@@ -162,11 +163,17 @@ public class StateController : MonoBehaviour
         //Destroy fish object
         Destroy(fish);
 
+        //generate the gear
+        GearGenerator gearGenerator = FindFirstObjectByType<GearGenerator>();
+        InventoryManager inventory = FindFirstObjectByType<InventoryManager>();
+        EquipmentType type = (EquipmentType)UnityEngine.Random.Range(0, 7);
+        SerializableEquipmentItem item = gearGenerator.GetSerializableEquipment(type, 1, Rarity.Common);
+        inventory.addItem(item);
+    
         // Return to passive state
         ChangeState(passiveState);
-      
     }
-
+    
     public void FishEscaped()
     {
         Debug.Log("Fish escaped");
@@ -189,7 +196,6 @@ public class StateController : MonoBehaviour
             //Destroy Lure object
             Destroy(lure);
         }
-
         // Return to passive state
         ChangeState(passiveState);
     }

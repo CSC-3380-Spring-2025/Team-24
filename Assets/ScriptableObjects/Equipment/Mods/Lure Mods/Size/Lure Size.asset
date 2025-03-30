@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modName: Size
   tierAssets:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 217d8b80003d54c48a2afe1e70744037, type: 2}
+  - {fileID: 11400000, guid: 3c93806c466604c449889438a85e75c6, type: 2}
+  - {fileID: 11400000, guid: 3a66f5b710139ee4ca3faba1acd8d565, type: 2}
+  - {fileID: 11400000, guid: 7d99f40dd8ce059439781980fb09d284, type: 2}
