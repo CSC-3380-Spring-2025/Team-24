@@ -9,7 +9,7 @@ TagManager:
   - Lure
   - Item
   - Sort Point
-  - Interactible
+  - OccupiedLure
   layers:
   - Default
   - TransparentFX
@@ -17,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Solid_Objects
   - 
   - 
   - 
@@ -47,62 +47,32 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Grass
-    uniqueID: 2550105583
+  - name: Water
+    uniqueID: 143301493
     locked: 0
-  - name: Background
-    uniqueID: 1311187845
+  - name: Background-Far
+    uniqueID: 350088891
     locked: 0
-  - name: Solid_Object
-    uniqueID: 478024713
+  - name: Background-Mid
+    uniqueID: 1478695247
     locked: 0
-  - name: Tree2
-    uniqueID: 602022429
+  - name: Background-Near
+    uniqueID: 3999961671
     locked: 0
-  - name: BehindPlayer
-    uniqueID: 4047533853
+  - name: Lure
+    uniqueID: 454200395
     locked: 0
   - name: Player
-    uniqueID: 2580256527
+    uniqueID: 337946203
     locked: 0
-  - name: Tree_Tops
-    uniqueID: 1881178259
+  - name: Fish
+    uniqueID: 992946319
     locked: 0
-  - name: Tree_Tops_Fixing
-    uniqueID: 1426101527
+  - name: Foreground-Objects
+    uniqueID: 1292898851
     locked: 0
-  - name: InvisWall
-    uniqueID: 1043124377
-    locked: 0
-  - name: InfrontOfPLayer
-    uniqueID: 761817993
-    locked: 0
-  - name: Back
-    uniqueID: 4056965695
-    locked: 0
-  - name: Back1
-    uniqueID: 1083925745
-    locked: 0
-  - name: Back2
-    uniqueID: 4149398917
-    locked: 0
-  - name: Back3
-    uniqueID: 1397776075
-    locked: 0
-  - name: Hill1
-    uniqueID: 4076882179
-    locked: 0
-  - name: Hill2
-    uniqueID: 1750368095
-    locked: 0
-  - name: Hill3
-    uniqueID: 3193117431
-    locked: 0
-  - name: Boulder
-    uniqueID: 1348790547
-    locked: 0
-  - name: Floor
-    uniqueID: 2574936303
+  - name: UI
+    uniqueID: 1803619637
     locked: 0
   m_RenderingLayers:
   - Default
