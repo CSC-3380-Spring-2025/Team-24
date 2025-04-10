@@ -76,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1720030993
-  m_SortingLayer: 16
+  m_SortingLayerID: 992946319
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 1898798987767113856, guid: cd2f807e1934bf44da71150c60cf0aea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -166,12 +166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishType: {fileID: 0}
-  currentRegion: {fileID: 0}
-  homePosition: {x: 0, y: 0}
-  age: 0
-  health: 1
-  hunger: 0
-  maturity: 0
-  velocity: {x: 0, y: 0}
   currentLure: {fileID: 0}
+  velocity: {x: 0, y: 0}
+  homePosition: {x: 0, y: 0}
   lureAttractionRadius: 3
+  fieldOfView: 270

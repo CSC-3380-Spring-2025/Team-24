@@ -13,12 +13,6 @@ MonoBehaviour:
   m_Name: BassFishType
   m_EditorClassIdentifier: 
   speciesID: Bass
-  spawnWeight: 0.5
-  spawnRegion: {fileID: 0}
-  spawnDepth: 25
-  schoolSizeMin: 10
-  schoolSizeMax: 10
-  maxSpeed: 2
   prefab: {fileID: 2491004836648192844, guid: d8e0937c2f9ff314889df975af6a77ea, type: 3}
   spawnWeight: 0
   spawnRegion: {fileID: 0}
