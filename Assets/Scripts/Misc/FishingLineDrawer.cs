@@ -9,16 +9,19 @@ public class FishingLineDrawer : MonoBehaviour
     private void OnEnable()
     {
         Lure.OnLureCreated += SetLureTarget;
+        Lure.OnLureDestroyed += ClearLureTarget;
     }
 
     private void OnDisable()
     {
         Lure.OnLureCreated -= SetLureTarget;
+        Lure.OnLureDestroyed -= ClearLureTarget;
     }
 
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
     }
 
     private void Update()
@@ -33,5 +36,13 @@ public class FishingLineDrawer : MonoBehaviour
     void SetLureTarget(Transform lure)
     {
         lureTransform = lure;
+        lineRenderer.enabled = true;
     }
+
+    void ClearLureTarget()
+    {
+        lureTransform = null;
+        lineRenderer.enabled = false;
+    }
+
 }
