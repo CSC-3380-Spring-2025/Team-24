@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2cfdfa23e06bae042aaab7dadd83d19a
+guid: 223c77445d3c8544bbd009e1eb7ed168
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4279973281527224729
-    second: Fishing_1_map_Grayscale_0
+      213: 3736843642979965379
+    second: Fishing_1_map_tundra_transparent_glow_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -54,10 +54,10 @@ TextureImporter:
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
-  alphaUsage: 2
-  alphaIsTransparency: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fishing_1_map_Grayscale_0
+      name: Fishing_1_map_tundra_transparent_glow_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1792
-        height: 1344
+        width: 670
+        height: 251
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 766286a0afa7a94c0800000000000000
-      internalID: -4279973281527224729
+      spriteID: 3c95ff0ae7febd330800000000000000
+      internalID: 3736843642979965379
       vertices: []
       indices: 
       edges: []

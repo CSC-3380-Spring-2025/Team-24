@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d820cb48edf2ec94f9c4b08f8fb37504
+guid: 4f66dbcdb7697394f931089e14e81934
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5434585333855672725
-    second: Fishing (1)_0
+      213: -4184302301127381702
+    second: Fishing_1_map_town_transparent_glow_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -24,7 +24,7 @@ TextureImporter:
     heightScale: 0.25
     normalMapFilter: 0
     flipGreenChannel: 0
-  isReadable: 1
+  isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fishing (1)_0
+      name: Fishing_1_map_town_transparent_glow_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2048
-        height: 1536
+        width: 227
+        height: 194
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b662cf9be697494b0800000000000000
-      internalID: -5434585333855672725
+      spriteID: a3de37cf93f5ee5c0800000000000000
+      internalID: -4184302301127381702
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Fishing (1)_0: -5434585333855672725
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
