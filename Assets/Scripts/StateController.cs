@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Build.Content;
 using UnityEngine;
@@ -44,6 +45,7 @@ public class StateController : MonoBehaviour
     private InWaterState inWaterState;
     private HookedState hookedState;
 
+    public ParticleSystem ps;
 
     private void Start()
     {
@@ -212,10 +214,23 @@ public class StateController : MonoBehaviour
             {
                 CleanUpLureAndFish(lure, hookedFish);
             }
+            
+            StartCoroutine(SeeFishLeave(2f));
+            
 
-            //Destroy Lure object
-            Destroy(lure);
         }
+
+        //PARTICLE EFFECT
+        Instantiate(ps, lure.transform.position, Quaternion.identity);
+
+        //Destroy Lure object
+        Destroy(lure);
+    }
+
+    IEnumerator SeeFishLeave(float time) 
+    {
+        yield return new WaitForSeconds(time);
+
         // Return to passive state
         ChangeState(passiveState);
     }

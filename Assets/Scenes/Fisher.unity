@@ -7410,6 +7410,7 @@ MonoBehaviour:
   powerMinigameObject: {fileID: 1679288192}
   waterLevel: 16
   tensionBarGameObject: {fileID: 560782637}
+  ps: {fileID: 3357199983328642241, guid: eab99b4daf999654fa8ece0be914014f, type: 3}
 --- !u!1 &958530982
 GameObject:
   m_ObjectHideFlags: 0
