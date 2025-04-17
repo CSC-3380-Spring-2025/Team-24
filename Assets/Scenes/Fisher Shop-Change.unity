@@ -10506,7 +10506,7 @@ MonoBehaviour:
   spawnRegions:
   - {fileID: 1096971446}
   populationUpdateInterval: 30
-  timeScale: 1
+  timeScale: 500
   showPopulationStats: 0
   lastPopulationUpdateTime: 0
   gameTime: 0
