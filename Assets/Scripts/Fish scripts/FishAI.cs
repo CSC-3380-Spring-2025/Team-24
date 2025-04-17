@@ -2,6 +2,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
+using UnityEngine.UIElements;
 
 public class FishAI : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class FishAI : MonoBehaviour
     public Vector2 velocity;
     public Transform currentLure = null;
     public float lureAttractionRadius = 5f; //Radius for lure attraction, fish will be attracted to lures within this radius
+    public float maxDistanceFromHome = 1f;
 
     //Components
     private SpriteRenderer spriteRenderer;
@@ -65,11 +67,16 @@ public class FishAI : MonoBehaviour
     private void FixedUpdate()
     {
         Vector2 acceleration = Vector2.zero;
-        acceleration += Flock();
-        acceleration += Wander();
-        acceleration += HomeAttraction();
-        acceleration += lureAttraction();
 
+        acceleration += HomeAttraction();
+
+        if (isInHomeRegion() && isInValidDepth())
+        {
+            acceleration += Flock();
+            acceleration += Wander();
+            acceleration += lureAttraction();
+        }
+             
         velocity += acceleration * Time.fixedDeltaTime;
         velocity = Vector2.ClampMagnitude(velocity, fishType.maxSpeed);
 
@@ -82,7 +89,7 @@ public class FishAI : MonoBehaviour
             transform.rotation = Quaternion.Euler(0,0,angle);
         }
 
-        //Set the direction of the fish to always be rightside up
+        //Set the direction of the fish to always be right side up
         if (velocity.x < 0)
         {
             spriteRenderer.flipY = true;
@@ -102,7 +109,7 @@ public class FishAI : MonoBehaviour
     private void ApplyFishData()
     {
         if (fishData == null) return;
-
+  
         //Apply modifiers
         fishType.maxSpeed *= fishData.speedMultiplier;
         transform.localScale *= fishData.sizeMultiplier;
@@ -110,6 +117,11 @@ public class FishAI : MonoBehaviour
 
     private Vector2 Flock()
     {
+        if (!isInValidDepth() || !isInHomeRegion()) //If fish is not in valid depth or not in home region, return zero vector
+        {
+            return Vector2.zero;
+        }
+
         //Collections all neighbors within neighbor Radius
         Collider2D[] neighbors = Physics2D.OverlapCircleAll(transform.position, fishType.neighborRadius);
         Vector2 alignment = Vector2.zero;
@@ -181,14 +193,36 @@ public class FishAI : MonoBehaviour
         return wanderForce; //Vector2.ClampMagnitude(wanderForce, maxForce);
     }
 
-    //This function keeps the fishies near their home point. 
+    //Returns vector pointing home but scales linearly with distance
     private Vector2 HomeAttraction()
     {
-        Vector2 toHome = (homePosition - (Vector2)transform.position).normalized * fishType.maxSpeed - velocity;
-        toHome *= fishType.homeAttractionWeight;
-        return toHome; //Vector2.ClampMagnitude(toHome, maxForce);
-    }
+        float targetY = currentRegion.GetYPositionForDepth(fishType.preferredDepthMin + (fishType.preferredDepthMax - fishType.preferredDepthMin)*0.5f); //Get the Y position for the preferred depth
 
+        Vector2 targetPosition = new Vector2(homePosition.x, targetY); //Get the target position for the fish to swim to
+
+        Vector2 toTarget = targetPosition - (Vector2)transform.position; //Get the vector to the target position
+
+        float distanceScale = 1.0f;
+
+        if (!isInValidDepth())
+        {
+            distanceScale = 3.0f;
+        }
+        else if (!isInHomeRegion())
+        {
+            distanceScale = 3.0f;
+        }
+        else
+        {
+            distanceScale = 0.0f;
+        }
+
+
+            Vector2 desired = toTarget.normalized * fishType.maxSpeed;
+        Vector2 steer = desired - velocity; //Get the steering force to the target position
+
+        return steer * fishType.homeAttractionWeight * distanceScale; //Return the steering force scaled by the home attraction weight
+    }
     private Vector2 lureAttraction()
     {
         if (currentLure == null)
@@ -222,6 +256,27 @@ public class FishAI : MonoBehaviour
         return Vector2.zero;
     }
 
+    bool isInHomeRegion()
+    {
+        float horizontalDistanceToHome = Mathf.Abs(currentRegion.transform.position.x - transform.position.x);
+        return horizontalDistanceToHome <= maxDistanceFromHome;
+    }
+
+    bool isInValidDepth()
+    {
+        //Get water surface level
+        float waterSurfaceY = currentRegion.waterSurfaceY;
+
+        if (transform.position.y > waterSurfaceY)
+        {
+            return false;
+        }
+
+        float minAllowedDepth = currentRegion.GetYPositionForDepth(fishType.preferredDepthMin);
+        float maxAllowedDepth = currentRegion.GetYPositionForDepth(fishType.preferredDepthMax);
+
+        return transform.position.y <= minAllowedDepth && transform.position.y >= maxAllowedDepth; //Check if fish is within the preferred depth range
+    }
     private void UpdateLifeCycle()
     {
         //Increment age
@@ -266,6 +321,10 @@ public class FishAI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, fishType.neighborRadius); //Draws white circle around neigbor seeing radius
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, fishType.separationDistance); //Draws red circle around separtion seeing radius
+
+        //Draws the max depth and min depth line horizontally
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(new Vector2(transform.position.x - 1f, currentRegion.GetYPositionForDepth(fishType.preferredDepthMin)), new Vector2(transform.position.x + 1f, currentRegion.GetYPositionForDepth(fishType.preferredDepthMin)));
     }
 
 }
