@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PassiveState : StateInterface
 { 
@@ -11,6 +12,7 @@ public class PassiveState : StateInterface
     public KeyCode inventoryKey;
     public KeyCode mapKey;
     public KeyCode settingsKey;
+    public KeyCode sceneswitchKey;
 
     public PassiveState(
         GameObject inventoryPanel, 
@@ -19,6 +21,7 @@ public class PassiveState : StateInterface
         KeyCode inventoryKey,
         KeyCode mapKey, 
         KeyCode settingsKey,
+        KeyCode sceneswitchKey,
         GameObject directionIndicator = null)
     {
         this.inventoryPanel = inventoryPanel;
@@ -57,6 +60,9 @@ public class PassiveState : StateInterface
         if (Input.GetKeyDown(settingsKey))
         {
             TogglePanel(settingsPanel);
+        }
+        if (Input.GetKeyDown(sceneswitchKey)){
+            SceneManager.LoadScene("Town Shop Change");
         }
     }
 

@@ -20,6 +20,7 @@ public class StateController : MonoBehaviour
     public KeyCode inventoryKey = KeyCode.I;
     public KeyCode mapKey = KeyCode.M;
     public KeyCode settingsKey = KeyCode.Escape;
+    public KeyCode sceneswitchKey = KeyCode.V;
 
     [Header("Cast State Settings")]
     public float castSpeed;
@@ -60,7 +61,7 @@ public class StateController : MonoBehaviour
             return;
         }
 
-        passiveState = new PassiveState(inventoryPanel,mapPanel,settingsPanel,inventoryKey,mapKey,settingsKey, directionIndicator.gameObject);
+        passiveState = new PassiveState(inventoryPanel,mapPanel,settingsPanel,inventoryKey,mapKey,settingsKey, sceneswitchKey, directionIndicator.gameObject);
         castState = new CastState(castSpeed, maxCastSpeed, lurePrefab, castOrigin, directionIndicator, powerMinigame);
         inAirState = new InAirState(waterLevel);
         inWaterState = new InWaterState();
