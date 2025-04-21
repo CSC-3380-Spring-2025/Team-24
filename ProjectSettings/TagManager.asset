@@ -12,6 +12,7 @@ TagManager:
   - Interactible
   - OccupiedLure
   - EquipmentSlot
+  - Boundary
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Boundary
   - 
   - 
   - 
@@ -105,6 +106,9 @@ TagManager:
     locked: 0
   - name: Floor
     uniqueID: 2574936303
+    locked: 0
+  - name: CLouds
+    uniqueID: 3842043999
     locked: 0
   m_RenderingLayers:
   - Default

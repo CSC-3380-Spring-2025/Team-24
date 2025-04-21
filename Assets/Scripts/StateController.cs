@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Build.Content;
 using UnityEngine;
@@ -6,6 +7,8 @@ using UnityEngine.Rendering.Universal;
 
 public class StateController : MonoBehaviour
 {
+    public ParticleSystem ps;
+
     public static event Action<GameObject> OnFishCaught;
     public static event Action OnFishEscaped;
 
@@ -196,7 +199,7 @@ public class StateController : MonoBehaviour
         // Return to passive state
         ChangeState(passiveState);
     }
-    
+
     public void FishEscaped()
     {
         Debug.Log("Fish escaped");
@@ -205,11 +208,6 @@ public class StateController : MonoBehaviour
 
         // Find and destoy only the lure 
         GameObject lure = GameObject.FindWithTag("Lure") ?? GameObject.FindGameObjectWithTag("OccupiedLure");
-        if (lure == null)
-        {
-            Debug.Log("No lure found!");
-            return;
-        }
         if (lure != null)
         {
             //Get reference to the hooked fish before destoying lure
@@ -221,9 +219,22 @@ public class StateController : MonoBehaviour
                 CleanUpLureAndFish(lure, hookedFish);
             }
 
-            //Destroy Lure object
-            Destroy(lure);
+            StartCoroutine(SeeFishLeave(2f));
+
+
         }
+
+        //PARTICLE EFFECT
+        Instantiate(ps, lure.transform.position, Quaternion.identity);
+
+        //Destroy Lure object
+        Destroy(lure);
+    }
+
+    IEnumerator SeeFishLeave(float time)
+    {
+        yield return new WaitForSeconds(time);
+
         // Return to passive state
         ChangeState(passiveState);
     }
