@@ -8,6 +8,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UITesting.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Town Shop Change.unity
+    guid: 35853e1458a5d104681062e4f9b880ac
+  - enabled: 1
+    path: Assets/Scenes/Fishing.unity
+    guid: aa88e9baa005186418bcd2d50ed472fc
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
