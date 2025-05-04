@@ -19,6 +19,12 @@ public class StateController : MonoBehaviour
     private Inventory inventory;
     private StateInterface currentState;
 
+    [Header("Fishing Components")]
+    public FishingController fishingController;
+    public PlayerStatsController playerStatsController;
+    public GameObject fishingUI;
+    private FishingState fishingState;
+
     [Header("Passive State Settings")]
     public GameObject inventoryPanel;
     public GameObject mapPanel;
@@ -51,6 +57,8 @@ public class StateController : MonoBehaviour
     private HookedState hookedState;
 
 
+
+
     private void Start()
     {
         InitializePanels();
@@ -60,6 +68,42 @@ public class StateController : MonoBehaviour
         inWaterState = new InWaterState();
         hookedState = new HookedState(tensionBarGameObject);
         ChangeState(passiveState);
+        InitializeFishingState();
+
+    }
+
+    private void InitializeFishingState()
+    {
+        // Find components if not assigned
+        if (fishingController == null)
+        {
+            fishingController = GetComponent<FishingController>();
+        }
+
+        if (playerStatsController == null)
+        {
+            playerStatsController = GetComponent<PlayerStatsController>();
+        }
+
+        // Create fishing state
+        fishingState = new FishingState(
+            fishingController,
+            playerStatsController,
+            EquipmentManager.Instance,
+            fishingUI,
+            gameUI); // Assuming gameUI is already defined in StateController
+
+        // Initially disable fishing controller
+        if (fishingController != null)
+        {
+            fishingController.enabled = false;
+        }
+
+        // Hide fishing UI initially
+        if (fishingUI != null)
+        {
+            fishingUI.SetActive(false);
+        }
     }
 
     public void ChangeState(StateInterface newState)
@@ -357,6 +401,24 @@ public class StateController : MonoBehaviour
         mapPanel = mapPanel.transform.GetChild(0).gameObject;
         settingsPanel = GameObject.FindGameObjectWithTag("Settings");
         settingsPanel = settingsPanel.transform.GetChild(0).gameObject;
+    }
+
+    private void HandleFishingKeyInput()
+    {
+        // Check for fishing rod hotkey (e.g., F key)
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            // If player is already fishing, exit fishing state
+            if (currentState == fishingState)
+            {
+                ChangeState(passiveState); // Assuming passiveState is available
+            }
+            // Otherwise enter fishing state
+            else
+            {
+                ChangeState(fishingState);
+            }
+        }
     }
 
 }

@@ -1,25 +1,24 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages player equipment slots and provides access to equipped items
+/// </summary>
 public class EquipmentManager : MonoBehaviour
 {
-    public static EquipmentManager Instance;
-    private Dictionary<EquipmentType, EquipmentSlot> slotLookup;
+    public static EquipmentManager Instance { get; private set; }
 
-    public SerializableEquipmentItem equippedRod;
-    public SerializableEquipmentItem equippedReel;
-    public SerializableEquipmentItem equippedLine;
-    public SerializableEquipmentItem equippedLure;
-    public SerializableEquipmentItem equippedHat;
-    public SerializableEquipmentItem equippedShirt;
-    public SerializableEquipmentItem equippedPants;
-    public SerializableEquipmentItem equippedBoots;
+    [SerializeField] private Transform equipmentSlotsParent;
+    private Dictionary<EquipmentType, EquipmentSlot> equipmentSlots = new Dictionary<EquipmentType, EquipmentSlot>();
+    private Dictionary<EquipmentType, SerializableEquipmentItem> equippedItems = new Dictionary<EquipmentType, SerializableEquipmentItem>();
 
-    public EquipmentSlot[] equipmentSlots;
-
+    // Add an event for equipment changes
+    public event Action OnEquipmentChanged;
 
     private void Awake()
     {
+        // Singleton setup
         if (Instance == null)
         {
             Instance = this;
@@ -30,71 +29,129 @@ public class EquipmentManager : MonoBehaviour
             return;
         }
 
-        //Build lookup on awake
-        slotLookup = new Dictionary<EquipmentType, EquipmentSlot>();
-        foreach (var slot in equipmentSlots)
-        {
-            if (!slotLookup.ContainsKey(slot.slotType))
-                slotLookup.Add(slot.slotType, slot);
-        }
-    }
-    public EquipmentSlot GetSlotForType(EquipmentType type)
-    {
-        return slotLookup.TryGetValue(type, out EquipmentSlot slot) ? slot : null;
+        // Initialize equipment slots
+        InitializeEquipmentSlots();
     }
 
-    public void EquipItem(SerializableEquipmentItem item)
+    private void InitializeEquipmentSlots()
     {
-        if (item == null)
+        if (equipmentSlotsParent == null)
         {
-            Debug.LogWarning("Attempted to equip a null item.");
+            Debug.LogError("Equipment slots parent not assigned!");
             return;
         }
-        switch (item.equipmentType)
+
+        // Find all equipment slot components
+        foreach (Transform child in equipmentSlotsParent)
         {
-            case EquipmentType.Rod: equippedRod = item;
-                break;
-            case EquipmentType.Reel:
-                equippedReel = item;
-                break;
-            case EquipmentType.Line:
-                equippedLine = item;
-                break;
-            case EquipmentType.Lure:
-                equippedLure = item;
-                break;
-            case EquipmentType.Hat:
-                equippedHat = item;
-                break;
-            case EquipmentType.Shirt:
-                equippedShirt = item;
-                break;
-            case EquipmentType.Pants:
-                equippedPants = item;
-                break;
-            case EquipmentType.Boots:
-                equippedBoots = item;
-                break;
-            default:
-                Debug.LogWarning("Unknown equipment type: " + item.equipmentType);
-                break;
+            EquipmentSlot slot = child.GetComponent<EquipmentSlot>();
+            if (slot != null)
+            {
+                equipmentSlots[slot.slotType] = slot;
+                Debug.Log($"Found equipment slot: {slot.slotType}");
+            }
         }
     }
 
-    public void UnequipItem(EquipmentType type)
+    /// <summary>
+    /// Equips an item to the appropriate slot
+    /// </summary>
+    /// <param name="itemData">The item to equip</param>
+    /// <returns>True if successful, false otherwise</returns>
+    public bool EquipItem(SerializableEquipmentItem itemData)
     {
-        switch (type)
+        if (itemData == null)
         {
-            case EquipmentType.Rod: equippedRod = null; break;
-            case EquipmentType.Reel: equippedReel = null; break;
-            case EquipmentType.Line: equippedLine = null; break;
-            case EquipmentType.Lure: equippedLure = null; break;
-            case EquipmentType.Hat: equippedHat = null; break;
-            case EquipmentType.Shirt: equippedShirt = null; break;
-            case EquipmentType.Pants: equippedPants = null; break;
-            case EquipmentType.Boots: equippedBoots = null; break;
+            Debug.LogError("Attempted to equip null item!");
+            return false;
         }
 
+        EquipmentType type = itemData.equipmentType;
+
+        // Check if slot exists
+        if (!equipmentSlots.ContainsKey(type))
+        {
+            Debug.LogError($"No slot found for equipment type: {type}");
+            return false;
+        }
+
+        // Store reference to the equipped item
+        equippedItems[type] = itemData;
+
+        // Trigger equipment changed event
+        OnEquipmentChanged?.Invoke();
+
+        Debug.Log($"Equipped item: {itemData.itemName} in slot {type}");
+        return true;
     }
 
+    /// <summary>
+    /// Unequips an item from the specified slot
+    /// </summary>
+    /// <param name="type">The slot to unequip</param>
+    /// <returns>The unequipped item, or null if none was equipped</returns>
+    public SerializableEquipmentItem UnequipItem(EquipmentType type)
+    {
+        // Check if slot exists and has an item
+        if (!equipmentSlots.ContainsKey(type) || !equippedItems.ContainsKey(type))
+        {
+            return null;
+        }
+
+        // Get the item before removing it
+        SerializableEquipmentItem unequippedItem = equippedItems[type];
+
+        // Remove from equipped items
+        equippedItems.Remove(type);
+
+        // Trigger equipment changed event
+        OnEquipmentChanged?.Invoke();
+
+        Debug.Log($"Unequipped item from slot {type}");
+        return unequippedItem;
+    }
+
+    /// <summary>
+    /// Gets the item equipped in the specified slot
+    /// </summary>
+    /// <param name="type">The slot to check</param>
+    /// <returns>The equipped item, or null if none is equipped</returns>
+    public SerializableEquipmentItem GetEquippedItem(EquipmentType type)
+    {
+        if (equippedItems.ContainsKey(type))
+        {
+            return equippedItems[type];
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Gets the equipment slot for the specified type
+    /// </summary>
+    /// <param name="type">The equipment type</param>
+    /// <returns>The equipment slot, or null if not found</returns>
+    public EquipmentSlot GetSlotForType(EquipmentType type)
+    {
+        if (equipmentSlots.ContainsKey(type))
+        {
+            return equipmentSlots[type];
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Checks if all required fishing gear is equipped
+    /// </summary>
+    /// <returns>True if player has all necessary gear to fish</returns>
+    public bool HasMinimumFishingGear()
+    {
+        // At minimum, player needs a rod, reel, and line to fish
+        bool hasRod = equippedItems.ContainsKey(EquipmentType.Rod);
+        bool hasReel = equippedItems.ContainsKey(EquipmentType.Reel);
+        bool hasLine = equippedItems.ContainsKey(EquipmentType.Line);
+
+        return hasRod && hasReel && hasLine;
+    }
 }
