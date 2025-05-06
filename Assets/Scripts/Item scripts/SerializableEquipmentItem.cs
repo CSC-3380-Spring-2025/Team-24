@@ -40,6 +40,8 @@ public class SerializableEquipmentItem
     public Rarity rarity;
 
     public EquipmentType equipmentType;
+
+    public float value;
 }
 
 

@@ -12,11 +12,15 @@ public class PlayerScript : MonoBehaviour
     public float speed;
     public GameObject interactionMarker;
 
+    public GameObject boat;
+    public bool leftBoat = true;
+
     // Start is called before the first frame update
     void Start()
     {
        rb = GetComponent<Rigidbody2D>();
        animator = GetComponent<Animator>();
+        leftBoat = false;
     }
 
     // Update is called once per frame
@@ -71,7 +75,10 @@ public class PlayerScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = moveDirection * speed;
+        if (leftBoat)
+        {
+            rb.linearVelocity = moveDirection * speed;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -88,5 +95,13 @@ public class PlayerScript : MonoBehaviour
         {
             interactionMarker.SetActive(false);
         }
+    }
+
+    public void Boat() 
+    {
+        leftBoat = false;
+        animator.SetTrigger("Boat");
+        transform.position = boat.transform.position;
+        animator.ResetTrigger("Boat");
     }
 }

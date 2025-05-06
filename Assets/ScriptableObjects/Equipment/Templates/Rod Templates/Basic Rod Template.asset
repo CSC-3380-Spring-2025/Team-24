@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Basic Rod Template
   m_EditorClassIdentifier: 
   templateName: Basic Rod
-  icon: {fileID: 0}
+  icon: {fileID: 172228888226951912, guid: 86c31285d5e24e247aadb16b10d6e7f8, type: 3}
   attributeFocus: 1
   baseStrength: 3
   baseAgility: 0

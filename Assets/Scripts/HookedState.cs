@@ -219,9 +219,10 @@ public class HookedState : StateInterface
         // Check if tension too high
         if (currentTension >= maxTension)
         {
-            Debug.Log("Fish escaped - tension too high!");
+            //Debug.Log("Fish escaped - tension too high!");
             // Fish escapes - reset and go back to passive state
             GameObject stateControllerObj = GameObject.FindWithTag("GameController");
+            Debug.Log(stateControllerObj);
             if (stateControllerObj != null)
             {
                 StateController controller = stateControllerObj.GetComponent<StateController>();
@@ -240,7 +241,7 @@ public class HookedState : StateInterface
             float distanceToPlayer = Vector2.Distance(player.transform.position, hookedFish.transform.position);
             if (distanceToPlayer < captureDistance)
             {
-                Debug.Log("Fish caught successfully!");
+                //Debug.Log("Fish caught successfully!");
                 
                 // Get FishType for potential inventory/rewards
                 FishAI fishAI = hookedFish.GetComponent<FishAI>();

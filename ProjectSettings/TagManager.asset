@@ -10,6 +10,15 @@ TagManager:
   - Item
   - Sort Point
   - Interactible
+  - OccupiedLure
+  - EquipmentSlot
+  - Boundary
+  - Sell Item
+  - Inventory
+  - UIManager
+  - Settings
+  - Map
+  - MapPanel
   layers:
   - Default
   - TransparentFX
@@ -17,7 +26,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Boundary
   - 
   - 
   - 
@@ -103,6 +112,9 @@ TagManager:
     locked: 0
   - name: Floor
     uniqueID: 2574936303
+    locked: 0
+  - name: CLouds
+    uniqueID: 3842043999
     locked: 0
   m_RenderingLayers:
   - Default

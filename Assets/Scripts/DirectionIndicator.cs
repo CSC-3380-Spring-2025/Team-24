@@ -8,7 +8,7 @@ public class DirectionIndicator : MonoBehaviour
     public LineRenderer lineRenderer;
     public float lineLength = 5f;
     public int lineSegmentCount = 2;
-    public float width = 0.1f;
+    public float width = 2f;
 
     [Header("Angle Settings")]
     [Range(0, 90)]

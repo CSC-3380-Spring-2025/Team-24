@@ -180,6 +180,7 @@ public class GearGenerator : MonoBehaviour
         SerializableEquipmentItem serializableEquipmentItem = new SerializableEquipmentItem();
         serializableEquipmentItem.itemName = item.itemName;
         serializableEquipmentItem.description = item.description;
+        serializableEquipmentItem.icon = item.icon;
         serializableEquipmentItem.itemLevel = item.itemLevel;
         serializableEquipmentItem.rarity = minRarity;
         serializableEquipmentItem.equipmentType = type;
@@ -1066,6 +1067,9 @@ public class GearGenerator : MonoBehaviour
     public void DubugGenerateAndPrint(EquipmentType type, int level, Rarity rarity)
     {
         EquipmentItem item = GenerateEquipment(type, level, rarity);
+        InventoryManager inventoryManager = FindFirstObjectByType<InventoryManager>();
+        SerializableEquipmentItem serializableEquipmentItem = GetSerializableEquipment(type, level, rarity);
+        inventoryManager.AddItem(serializableEquipmentItem); 
         Debug.Log($"Generated Item: {item.itemName} (Level {item.itemLevel})");
         Debug.Log($"Description: {item.description}");
     }

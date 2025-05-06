@@ -2,12 +2,12 @@ using UnityEngine;
 using System.Collections.Generic;
 
 /// <summary>
-/// Responsible for initializing and configuring a GearGenerator compoent with equipment templates and mods.
+/// Responsible for initializing and configuring a GearGenerator component with equipment templates and mods.
 /// </summary>
 /// <remarks> 
-/// This compoent acts as a brige between Unity's serializable assets in the inspector and the 
+/// This component acts as a bridge between Unity's serializable assets in the inspector and the 
 /// runtime data structures needed by the GearGenerator. It converts EquipmentTemplateAsset and
-/// EquipmentModAsset instances into their runtime coutnerparts during initialization.
+/// EquipmentModAsset instances into their runtime counterparts during initialization.
 /// </remarks>
 public class GearGeneratorSetup : MonoBehaviour
 {

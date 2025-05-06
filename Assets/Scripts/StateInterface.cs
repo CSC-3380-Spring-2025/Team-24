@@ -1,6 +1,6 @@
 public interface StateInterface
 {
-    void Enter();
-    void Update();
-    void Exit();
+    public void Enter();
+    public void Update();
+    public void Exit();
 }

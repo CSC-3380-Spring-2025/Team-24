@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Strong Reel
   m_EditorClassIdentifier: 
   templateName: Strong Reel
-  icon: {fileID: 0}
+  icon: {fileID: -7012814559099258065, guid: 7165426d80acd7340b02e400371d15f8, type: 3}
   attributeFocus: 1
   baseStrength: 3
   baseAgility: 0

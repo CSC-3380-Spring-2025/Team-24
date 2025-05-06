@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class FishManager : MonoBehaviour
 {
-    [System.Serializable]
     public class PopulationData
     {
         public FishType fishType; //Type of fish
@@ -26,6 +27,8 @@ public class FishManager : MonoBehaviour
     public float lastPopulationUpdateTime = 0f; //Last time the population data was updated
     public float gameTime = 0f; //Current game time in seconds
 
+    [Header("Fish Generator")]
+    public FishGenerator fishGenerator;
 
     private void Start()
     {
@@ -42,8 +45,8 @@ public class FishManager : MonoBehaviour
             populations[fishType.speciesID] = data; //Add the population data to the dictionary
         }
 
-        //Inital population setup
-        PerformIntialSpawning();
+        //Initial population setup
+        PerformInitialSpawning();
 
         //Start enviromental cycle
         
@@ -64,13 +67,13 @@ public class FishManager : MonoBehaviour
     }
 
 
-    private void PerformIntialSpawning()
+    private void PerformInitialSpawning()
     {
         foreach (FishType fishType in managedFishTypes)
         {
             int initialCount = fishType.targetPopulation / 2; //Spawn half
 
-            //Find stuitable spawn region for the fish type
+            //Find suitable spawn region for the fish type
             List<SpawnRegion> suitableRegions = FindSuitableRegions(fishType);
             if (suitableRegions.Count > 0)
             {
@@ -81,8 +84,9 @@ public class FishManager : MonoBehaviour
                 {
                     int fishToSpawn = fishPerRegion;
                     if (i == 0) fishToSpawn += remainder; //Add any remainder to the first region
-
-                    SpawnFishGroup(fishType, suitableRegions[i], fishToSpawn);
+                    //Generate a serializable fish item
+                    SerializableFishItem serializableFishItem = fishGenerator.GenerateSerializableFish(fishType, 1); //Generate a serializable fish item
+                    SpawnFishGroup(fishType, suitableRegions[i], fishToSpawn, serializableFishItem);
                 }
             }
         }
@@ -104,7 +108,7 @@ public class FishManager : MonoBehaviour
     }
 
 
-    private void SpawnFishGroup(FishType fishType, SpawnRegion region, int count)
+    private void SpawnFishGroup(FishType fishType, SpawnRegion region, int count, SerializableFishItem serializableFishItem)
     {
         //Create a parent object for the school
         GameObject schoolParent = new GameObject(fishType.speciesID + " School");
@@ -112,18 +116,25 @@ public class FishManager : MonoBehaviour
         //Get population data
         PopulationData populationData = populations[fishType.speciesID];
 
-        //Random postion within region for school center
+        //Random position within region for school center
         Vector2 schoolCenter = region.GetRandomPosition();
         schoolParent.transform.position = schoolCenter;
 
-        //Spawn indivudual fishies
         for (int i = 0; i < count; i++)
         {
             //Random position within the region for each fish
             Vector2 spawnPosition = schoolCenter + new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f));
 
             //Create fish instance
-            GameObject fishObj = Instantiate(fishType.prefab, spawnPosition, Quaternion.identity);
+            //Get the FishGenerator component from the FishManager
+            if (fishGenerator == null)
+            {
+                Debug.LogError("FishGenerator component not found on FishManager. Please add it.");
+                return;
+            }
+
+            
+            GameObject fishObj = Instantiate(fishType.prefab, spawnPosition, Quaternion.identity); //Instantiate the fish prefab
             fishObj.transform.parent = schoolParent.transform; //Set the parent to the school object
 
             //Set up fish AI
@@ -133,7 +144,7 @@ public class FishManager : MonoBehaviour
                 fishAI = fishObj.AddComponent<FishAI>(); //Add FishAI component if not present
             }
 
-            fishAI.Initialize(fishType, region, schoolCenter); //Initialize fish AI with type and region
+            fishAI.Initialize(fishType, region, schoolCenter, serializableFishItem); //Initialize fish AI 
 
             //Subscribe to fish events
             fishAI.OnFishDeath += HandleFishDeath; //Subscribe to the death event
@@ -178,8 +189,10 @@ public class FishManager : MonoBehaviour
                         List<SpawnRegion> suitableRegions = FindSuitableRegions(fishType); //Find suitable regions for spawning
                         if (suitableRegions.Count > 0)
                         {
-                            SpawnRegion region = suitableRegions[UnityEngine.Random.Range(0, suitableRegions.Count)]; //Select a random suitable region
-                            SpawnFishGroup(fishType, region, fishToSpawn);
+                            SpawnRegion region = suitableRegions[Random.Range(0, suitableRegions.Count)]; //Select a random suitable region
+                            //Generate a serializable fish item
+                            SerializableFishItem serializableFishItem = fishGenerator.GenerateSerializableFish(fishType, 1); //Generate a serializable fish item
+                            SpawnFishGroup(fishType, region, fishToSpawn, serializableFishItem);
                         }
                     }
                 }
