@@ -39,6 +39,8 @@ TagManager:
   - DragPanel
   - WaterTopRight
   - WaterBottomLeft
+  - BuyPanel
+  - GearGenerator
   layers:
   - Default
   - TransparentFX
